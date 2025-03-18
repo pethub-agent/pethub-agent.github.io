@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
 
+export const DB_NAME = 'pethubdb';
+
 @Injectable({
   providedIn: 'root',
 })
 export abstract class Database<T extends { id?: number }> {
-  private dbName = 'pethub_database';
   private db: Dexie;
   private table: Table<T, number>;
 
   constructor(tableName: string, schema: string, initialData?: T[]) {
     // Inicializa o banco de dados Dexie
-    this.db = new Dexie(this.dbName);
+    this.db = new Dexie(DB_NAME);
     this.db.version(1).stores({
       [tableName]: schema, // Define o esquema da tabela
     });
@@ -20,7 +21,7 @@ export abstract class Database<T extends { id?: number }> {
     this.table = this.db.table(tableName);
 
     if (initialData) {
-      this.initializeData(initialData);
+      this.initializeData(tableName, initialData);
     }
   }
 
@@ -53,10 +54,14 @@ export abstract class Database<T extends { id?: number }> {
     return this.table.clear();
   }
 
-  private async initializeData(initialData: T[]): Promise<void> {
-    const count = await this.table.count();
-    if (count === 0) {
-      await this.table.bulkAdd(initialData);
+  private async initializeData(
+    tableName: string,
+    initialData: T[]
+  ): Promise<void> {
+    if (initialData) {
+      this.db.on('populate', (transaction) => {
+        transaction.table(tableName).bulkAdd(initialData);
+      });
     }
   }
 }
