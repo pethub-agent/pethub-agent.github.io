@@ -1,0 +1,22 @@
+<div class="relative mb-4">
+  @if (error) {
+  <p class="animate-fade-right pb-1 text-xs text-red-400">{{ error }}</p>
+  } @if (label) {
+  <label class="block text-sm font-medium mb-2">{{ label }}</label>
+  }
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [(ngModel)]="value"
+    (blur)="onBlur()"
+    (input)="onInputChange($event)"
+    class="w-full p-3 rounded-lg border-2 focus:outline-none transition-colors"
+    [ngClass]="{
+      'border-neutral-500 focus:border-primary-500': !disabled,
+      'border-neutral-200 bg-neutral-200': disabled
+    }"
+  />
+
+  <p></p>
+</div>

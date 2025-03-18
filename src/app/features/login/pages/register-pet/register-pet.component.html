@@ -1,1 +1,47 @@
-<p>register-pet works!</p>
+<div
+  class="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-center items-center text-white p-4"
+>
+  <h2 class="text-3xl font-bold mb-6">Cadastro do Animal</h2>
+
+  <form
+    [formGroup]="formPet"
+    (ngSubmit)="onSubmit()"
+    class="bg-white p-5 rounded-lg shadow-lg w-full max-w-md text-gray-800"
+  >
+    <app-input formControlName="name" label="Nome do Animal"></app-input>
+
+    <app-select
+      formControlName="specie"
+      [options]="species()"
+      label="Espécie"
+    ></app-select>
+    <app-input formControlName="breed" label="Raça (opcional)"></app-input>
+
+    <!-- TODO: Criar data de nascimento -->
+    <app-date formControlName="birth" label="Nascimento"></app-date>
+
+    <app-select
+      formControlName="gender"
+      [options]="gender()"
+      label="Sexo"
+    ></app-select>
+
+    <!-- TODO: Foto do Animal -->
+    <!-- <div class="mb-6">
+      <label class="block text-sm font-medium mb-2">Foto do Animal</label>
+      <input
+        type="file"
+        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div> -->
+    @if (errorFieldRequired()) {
+
+    <p class="py-2 text-sm text-gray-600 animate-fade-up">
+      Preencha todos os campos obrigatórios.
+    </p>
+    }
+    <app-button theme="gradient" type="submit" class="max-w-md my-2 w-full">
+      Avançar</app-button
+    >
+  </form>
+</div>

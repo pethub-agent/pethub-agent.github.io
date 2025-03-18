@@ -1,0 +1,9 @@
+<button
+  class="w-full h-12 px-6"
+  [type]="type"
+  [disabled]="disabled"
+  [ngClass]="buttonClasses"
+  (click)="onClick()"
+>
+  <ng-content></ng-content>
+</button>

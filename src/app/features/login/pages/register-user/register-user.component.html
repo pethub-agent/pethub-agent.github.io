@@ -1,1 +1,35 @@
-<p>register-user works!</p>
+<div
+  class="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-center items-center text-white p-4"
+>
+  <h2 class="text-3xl font-bold mb-6">Criação de Login</h2>
+  <form
+    [formGroup]="formUser"
+    (ngSubmit)="onSubmit()"
+    class="bg-white p-5 rounded-lg shadow-lg w-full max-w-md text-gray-800"
+  >
+    <app-input formControlName="name" label="Nome Completo"></app-input>
+    <app-input formControlName="email" label="Email" error="teste"></app-input>
+    <app-input
+      formControlName="password"
+      label="Senha"
+      type="password"
+    ></app-input>
+    <app-input
+      formControlName="confirmation"
+      label="Confirmar Senha"
+      type="password"
+    ></app-input>
+
+    @if (passwordMismatch()) {
+    <p class="animate-fade-right pb-1 text-xs text-red-400">
+      {{ passwordMismatch() }}
+    </p>
+
+    }
+
+    <div class="flex flex-col gap-2">
+      <app-button type="submit" theme="gradient">Criar Conta</app-button>
+      <app-button (click)="goToPet()" theme="neutral">Voltar</app-button>
+    </div>
+  </form>
+</div>

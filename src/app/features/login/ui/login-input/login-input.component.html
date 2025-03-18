@@ -1,0 +1,15 @@
+@if (error) {
+<p class="pl-4 animate-fade-right pb-1 text-xs text-white">{{ error }}</p>
+}@if (label) {
+<label class="pl-4 text-white block text-sm font-medium mb-2">{{
+  label
+}}</label>
+}
+<input
+  class="w-full h-12 px-6 mb-4 bg-transparent border-2 border-solid placeholder-white text-white rounded-full focus:outline-none"
+  [type]="type"
+  [placeholder]="placeholder"
+  [(ngModel)]="value"
+  (blur)="onBlur()"
+  (input)="onInputChange($event)"
+/>

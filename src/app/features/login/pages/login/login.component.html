@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div
+  class="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-center items-center text-white p-4"
+>
+  <form
+    [formGroup]="formLogin"
+    (submit)="submitLogin()"
+    class="flex flex-col p-8 w-full max-w-md text-gray-800"
+  >
+    <app-login-input
+      formControlName="email"
+      placeholder="Email"
+    ></app-login-input>
+    <app-login-input
+      formControlName="password"
+      type="password"
+      placeholder="Senha"
+    ></app-login-input>
+    <app-login-button
+      class="w-2/3 mx-auto mt-3 font-bold"
+      type="submit"
+      theme="gradient"
+      >Entrar</app-login-button
+    >
+  </form>
+</div>

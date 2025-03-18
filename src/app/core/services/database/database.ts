@@ -9,7 +9,7 @@ export abstract class Database<T extends { id?: number }> {
   private db: Dexie;
   private table: Table<T, number>;
 
-  constructor(tableName: string, schema: string) {
+  constructor(tableName: string, schema: string, initialData?: T[]) {
     // Inicializa o banco de dados Dexie
     this.db = new Dexie(this.dbName);
     this.db.version(1).stores({
@@ -18,6 +18,10 @@ export abstract class Database<T extends { id?: number }> {
 
     // Obtém a referência da tabela
     this.table = this.db.table(tableName);
+
+    if (initialData) {
+      this.initializeData(initialData);
+    }
   }
 
   // Métodos genéricos CRUD
@@ -47,5 +51,12 @@ export abstract class Database<T extends { id?: number }> {
 
   async clear(): Promise<void> {
     return this.table.clear();
+  }
+
+  private async initializeData(initialData: T[]): Promise<void> {
+    const count = await this.table.count();
+    if (count === 0) {
+      await this.table.bulkAdd(initialData);
+    }
   }
 }

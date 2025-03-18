@@ -1,13 +1,19 @@
 import {
   ApplicationConfig,
+  importProvidersFrom,
   isDevMode,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { provideHttpClient } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
+import { JwtModule } from '@auth0/angular-jwt';
 import { provideTransloco } from '@jsverse/transloco';
+import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { TranslocoHttpLoader } from './core/providers/transloco-loader/transloco-loader';
 
@@ -15,7 +21,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideTransloco({
       config: {
         availableLangs: ['pt-BR', 'en'],
@@ -26,9 +32,22 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    // Aplicação PWA
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    importProvidersFrom(
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: () => localStorage.getItem('access_token'),
+          allowedDomains: [environment.apiUrl],
+          disallowedRoutes: [
+            environment.apiUrl + 'login',
+            environment.apiUrl + 'register',
+          ],
+        },
+      })
+    ),
   ],
 };

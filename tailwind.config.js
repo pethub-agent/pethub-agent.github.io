@@ -2,7 +2,57 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: { roboto: ["Roboto", "sans-serif"] },
+      colors: {
+        // Cores personalizadas
+        primary: {
+          DEFAULT: "#FF914D", // Cor primária padrão
+          dark: "#E07E3A", // Versão escura da cor primária
+          light: "#FFA877", // Versão clara da cor primária
+        },
+        secondary: {
+          DEFAULT: "#FFC857", // Cor secundária padrão
+          dark: "#E0B14B", // Versão escura da cor secundária
+          light: "#FFD97D", // Versão clara da cor secundária
+        },
+        neutral: {
+          100: "#FFFFFF", // Neutro 100
+          200: "#F5F5F5", // Neutro 200
+          500: "#BDBDBD", // Neutro 500
+          800: "#4A4A4A", // Neutro 800
+          900: "#2E2E2E", // Neutro 900
+        },
+        support: {
+          blue: "#58A6FF", // Azul de suporte
+          green: "#58C77C", // Verde de suporte
+        },
+        text: {
+          primary: "#2E2E2E", // Cor primária do texto
+          secondary: "#4A4A4A", // Cor secundária do texto
+          disabled: "#BDBDBD", // Cor do texto desabilitado
+        },
+        background: {
+          light: "#FFFFFF", // Fundo claro
+          dark: "#F5F5F5", // Fundo escuro
+        },
+
+        // Cores da identidade visual do Pet Amigo
+        "pet-blue": {
+          500: "#3B82F6", // Azul principal
+          600: "#2563EB", // Azul mais escuro
+        },
+        "pet-purple": {
+          500: "#8B5CF6", // Roxo principal
+          600: "#7C3AED", // Roxo mais escuro
+        },
+        "pet-gradient-start": "#3B82F6", // Início do gradiente (azul)
+        "pet-gradient-end": "#8B5CF6", // Fim do gradiente (roxo)
+      },
+      backgroundImage: {
+        "pet-gradient": "linear-gradient(to right, var(--tw-gradient-stops))",
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animated")],
 };

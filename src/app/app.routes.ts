@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login/confirmacao',
+    redirectTo: 'login/introducao',
   },
   {
     path: 'login',
@@ -18,10 +18,6 @@ export const routes: Routes = [
         (m) => m.LoginLayoutComponent
       ),
     children: [
-      {
-        path: 'confirmacao',
-        component: ConfirmationComponent,
-      },
       {
         path: 'introducao',
         component: IntroductionComponent,
@@ -33,6 +29,10 @@ export const routes: Routes = [
       {
         path: 'perfil',
         component: RegisterUserComponent,
+      },
+      {
+        path: 'confirmacao',
+        component: ConfirmationComponent,
       },
       {
         path: 'sign',

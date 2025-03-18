@@ -1,1 +1,12 @@
-<p>introduction works!</p>
+<div
+  class="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-center items-center text-white p-4"
+>
+  <h1 class="text-4xl font-bold mb-4">Bem-vindo ao Pet Amigo!</h1>
+  <p class="text-lg mb-8">
+    Para começar, cadastre seu primeiro animal de estimação.
+  </p>
+
+  <app-button (click)="goToRegisterPet()" theme="neutral"
+    >Cadastrar meu animal</app-button
+  >
+</div>
