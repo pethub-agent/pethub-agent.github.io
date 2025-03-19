@@ -12,12 +12,11 @@
 
     <app-select
       formControlName="specie"
-      [options]="species()"
+      [options]="(species | async) || []"
       label="Espécie"
     ></app-select>
     <app-input formControlName="breed" label="Raça (opcional)"></app-input>
 
-    <!-- TODO: Criar data de nascimento -->
     <app-date formControlName="birth" label="Nascimento"></app-date>
 
     <app-select
@@ -26,14 +25,8 @@
       label="Sexo"
     ></app-select>
 
-    <!-- TODO: Foto do Animal -->
-    <!-- <div class="mb-6">
-      <label class="block text-sm font-medium mb-2">Foto do Animal</label>
-      <input
-        type="file"
-        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div> -->
+    <app-photo formControlName="photo" label="Foto do Pet"></app-photo>
+
     @if (errorFieldRequired()) {
 
     <p class="py-2 text-sm text-gray-600 animate-fade-up">

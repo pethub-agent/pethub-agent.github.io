@@ -4,12 +4,18 @@ import { IntroductionComponent } from './features/login/pages/introduction/intro
 import { LoginComponent } from './features/login/pages/login/login.component';
 import { RegisterPetComponent } from './features/login/pages/register-pet/register-pet.component';
 import { RegisterUserComponent } from './features/login/pages/register-user/register-user.component';
+import { TestComponent } from './features/test/test.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    // redirectTo: 'test',
     redirectTo: 'login/introducao',
+  },
+  {
+    path: 'test',
+    component: TestComponent,
   },
   {
     path: 'login',

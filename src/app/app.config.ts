@@ -1,6 +1,7 @@
 import {
   ApplicationConfig,
   importProvidersFrom,
+  inject,
   isDevMode,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -16,6 +17,8 @@ import { provideTransloco } from '@jsverse/transloco';
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { TranslocoHttpLoader } from './core/providers/transloco-loader/transloco-loader';
+import { StorageKeys } from './core/services/storage/storage.enum';
+import { StorageService } from './core/services/storage/storage.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,8 +43,11 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       JwtModule.forRoot({
         config: {
-          tokenGetter: () => localStorage.getItem('access_token'),
-          allowedDomains: [environment.apiUrl],
+          tokenGetter: () => {
+            const storage = inject(StorageService);
+            return storage.get(StorageKeys.token);
+          },
+          allowedDomains: [environment.apiUrl, 'localhost:3000'],
           disallowedRoutes: [
             environment.apiUrl + 'login',
             environment.apiUrl + 'register',

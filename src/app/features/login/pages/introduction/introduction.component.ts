@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Seed } from '../../../../core/services/database/seed';
+
 import { ButtonComponent } from '../../../../core/ui/button/button.component';
 
 @Component({
@@ -12,10 +12,6 @@ import { ButtonComponent } from '../../../../core/ui/button/button.component';
 })
 export class IntroductionComponent {
   private router = inject(Router);
-
-  constructor() {
-    const s = inject(Seed);
-  }
 
   goToRegisterPet() {
     this.router.navigate(['/login/meu-pet']);

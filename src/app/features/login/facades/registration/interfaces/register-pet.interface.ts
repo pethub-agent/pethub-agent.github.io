@@ -1,11 +1,11 @@
+import { PetGender } from '../../../../../core/services/database/tables/pet.table';
+import { SpecieTable } from '../../../../../core/services/database/tables/specie.table';
+
 export interface IRegisterPet {
   name: string;
   breed: string;
-  gender: 'M' | 'F' | string;
+  gender: PetGender;
   birth: Date;
-  photoUrl: string;
-  specie: {
-    id: number | string;
-    name: string;
-  };
+  photo: string;
+  specie?: SpecieTable;
 }

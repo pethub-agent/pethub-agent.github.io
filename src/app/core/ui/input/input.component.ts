@@ -35,8 +35,10 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   label = '';
 
   value: string = '';
+
   onChange: any = () => {};
   onTouched: any = () => {};
+
   control: NgControl | null = null;
   group: FormGroupDirective | null = null;
 

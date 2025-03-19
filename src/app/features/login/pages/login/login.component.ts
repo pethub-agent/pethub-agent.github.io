@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { JwtService } from '../../../../core/services/jwt/jwt.service';
+import { StorageKeys } from '../../../../core/services/storage/storage.enum';
+import { StorageService } from '../../../../core/services/storage/storage.service';
 import { RegistrationFacade } from '../../facades/registration/registration.facade';
 import { LoginButtonComponent } from '../../ui/login-button/login-button.component';
 import { LoginInputComponent } from '../../ui/login-input/login-input.component';
@@ -14,11 +17,17 @@ import { LoginInputComponent } from '../../ui/login-input/login-input.component'
 export class LoginComponent {
   private fb = inject(FormBuilder);
   private registration = inject(RegistrationFacade);
+  private jwt = inject(JwtService);
+  private storage = inject(StorageService);
 
   formLogin = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
+
+  d() {
+    return this.jwt.decode(this.storage.get(StorageKeys.token) || '');
+  }
 
   submitLogin() {
     if (!this.formLogin.valid) {
@@ -31,10 +40,10 @@ export class LoginComponent {
         this.formLogin.value.password || ''
       )
       .subscribe({
-        next: (result) => {
-          console.log(result);
+        next: (result: any) => {
+          return this.registration.saveStore();
         },
-        error: (err) => {
+        error: (err: any) => {
           console.log(err);
         },
       });
