@@ -1,0 +1,127 @@
+<div class="min-h-screen bg-background-light font-roboto p-6 pb-20">
+  <!-- Cabeçalho -->
+  <div class="flex justify-between items-center mb-6">
+    <div class="flex items-center">
+      <div>
+        <h1 class="text-2xl font-bold text-text-primary">
+          Bem-vindo, {{ userName || "Seu Pet" }}!
+        </h1>
+        <p class="text-text-secondary">Selecione um pet para gerenciar:</p>
+      </div>
+    </div>
+    <div class="flex space-x-4">
+      <button class="text-text-secondary hover:text-primary">
+        <app-icon icon="bell"></app-icon>
+      </button>
+
+      <button class="text-text-secondary hover:text-primary">
+        <app-icon icon="engine"></app-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Seletor de Pets -->
+  <div class="mb-6">
+    <div class="flex space-x-4 overflow-x-auto pb-2">
+      @for (pet of (petList | async); track $index) {
+      <div
+        (click)="selectPet(pet)"
+        [class.border-primary]="selectedPet?.id === pet.id"
+        class="flex-shrink-0 flex flex-col items-center p-4 border-2 border-dashed rounded-lg cursor-pointer hover:bg-neutral-200 transition-colors"
+      >
+        <app-avatar size="lg" [src]="pet.photoUrl || ''"></app-avatar>
+
+        <p class="text-text-primary font-semibold">{{ pet.name }}</p>
+      </div>
+
+      }
+    </div>
+  </div>
+
+  <!-- Resumo Diário (apenas se um pet estiver selecionado) -->
+  <!-- <div *ngIf="selectedPet" class="bg-neutral-200 p-6 rounded-lg mb-6">
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <p class="text-text-primary font-semibold">
+          Próxima Refeição: {{ selectedPet.nextMeal }}
+        </p>
+        <span class="text-support-green">✅ Refeição da manhã concluída</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-paw text-primary"></i>
+        <p class="text-text-secondary">
+          {{ selectedPet.name }} caminhou {{ selectedPet.walkedDistance }} hoje
+        </p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Cards de Acesso Rápido (apenas se um pet estiver selecionado) -->
+  <div *ngIf="selectedPet" class="grid grid-cols-2 gap-4 mb-6">
+    <div
+      class="bg-primary-light p-4 rounded-lg flex items-center justify-center text-center cursor-pointer hover:bg-primary"
+    >
+      <i class="fas fa-utensils text-3xl text-primary-dark mb-2"></i>
+      <p class="text-text-primary font-semibold">Registrar Refeição</p>
+    </div>
+    <div
+      class="bg-secondary-light p-4 rounded-lg flex items-center justify-center text-center cursor-pointer hover:bg-secondary"
+    >
+      <i class="fas fa-calendar-check text-3xl text-secondary-dark mb-2"></i>
+      <p class="text-text-primary font-semibold">Próxima Consulta</p>
+    </div>
+    <div
+      class="bg-support-blue p-4 rounded-lg flex items-center justify-center text-center cursor-pointer hover:bg-opacity-80"
+    >
+      <i class="fas fa-walking text-3xl text-white mb-2"></i>
+      <p class="text-text-primary font-semibold">Registrar Passeio</p>
+    </div>
+    <div
+      class="bg-neutral-200 p-4 rounded-lg flex items-center justify-center text-center cursor-pointer hover:bg-neutral-500"
+    >
+      <i class="fas fa-paw text-3xl text-text-primary mb-2"></i>
+      <p (click)="goToPetManager()" class="text-text-primary font-semibold">
+        Editar Perfil
+      </p>
+    </div>
+  </div>
+
+  <!-- Gráfico de Consumo Semanal (apenas se um pet estiver selecionado) -->
+  <div *ngIf="selectedPet" class="bg-neutral-200 p-6 rounded-lg mb-6">
+    <h2 class="text-text-primary font-semibold mb-4">Consumo Semanal</h2>
+    <div
+      class="h-32 bg-neutral-100 rounded-lg flex items-center justify-center"
+    >
+      <p class="text-text-secondary">Gráfico de Consumo (Mockado)</p>
+    </div>
+    <p class="text-support-green mt-4">
+      🎉 {{ selectedPet.name }} manteve a dieta esta semana!
+    </p>
+  </div>
+
+  <!-- Botão de Ação Primária (apenas se um pet estiver selecionado) -->
+  <app-button class="w-full" (click)="goToPetManager()" theme="gradient-primary"
+    >Meus Pets</app-button
+  >
+
+  <!-- Menu Inferior -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
+    <div class="grid grid-cols-5 gap-4 p-4">
+      <button class="text-text-secondary text-center hover:text-primary">
+        <app-icon icon="bell" size="lg"></app-icon>
+      </button>
+      <button class="text-text-secondary text-center hover:text-primary">
+        <app-icon icon="bell" size="lg"></app-icon>
+      </button>
+      <button class="text-text-secondary text-center hover:text-primary">
+        <app-icon icon="bell" size="lg"></app-icon>
+      </button>
+      <button class="text-text-secondary text-center hover:text-primary">
+        <app-icon icon="bell" size="lg"></app-icon>
+      </button>
+      <button class="text-text-secondary text-center hover:text-primary">
+        <app-icon icon="bell" size="lg"></app-icon>
+      </button>
+    </div>
+  </div>
+</div>

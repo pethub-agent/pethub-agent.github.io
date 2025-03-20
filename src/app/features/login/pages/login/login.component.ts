@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JwtService } from '../../../../core/services/jwt/jwt.service';
 import { StorageKeys } from '../../../../core/services/storage/storage.enum';
 import { StorageService } from '../../../../core/services/storage/storage.service';
@@ -19,6 +20,7 @@ export class LoginComponent {
   private registration = inject(RegistrationFacade);
   private jwt = inject(JwtService);
   private storage = inject(StorageService);
+  private router = inject(Router);
 
   formLogin = this.fb.group({
     email: ['', Validators.required],
@@ -41,7 +43,9 @@ export class LoginComponent {
       )
       .subscribe({
         next: (result: any) => {
-          return this.registration.saveStore();
+          return this.registration
+            .saveStore()
+            .then(() => this.router.navigate(['alimentacao/home']));
         },
         error: (err: any) => {
           console.log(err);

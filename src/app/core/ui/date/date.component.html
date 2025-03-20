@@ -9,7 +9,7 @@
   }
 
   <div
-    class="relative flex items-center bg-background-light border border-neutral-500 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-primary"
+    class="relative flex items-center bg-background-light border-2 border-neutral-500 rounded-lg p-3 focus-within:ring-2 focus-within:ring-primary"
     [class.opacity-50]="disabled"
   >
     <input
@@ -21,19 +21,5 @@
       (change)="handleInputChange($event)"
       (blur)="onTouched()"
     />
-    <svg
-      class="w-5 h-5 text-neutral-500 absolute right-3 pointer-events-none"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M8 7V3m8 4V3m-9 4h10M5 10h14m-14 4h14m-14 4h14"
-      />
-    </svg>
   </div>
 </div>

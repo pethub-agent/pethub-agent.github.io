@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       fontFamily: { roboto: ["Roboto", "sans-serif"] },
       colors: {
-        // Cores personalizadas
+        // Cores identidade visual
         primary: {
           DEFAULT: "#FF914D", // Cor primária padrão
           dark: "#E07E3A", // Versão escura da cor primária
@@ -36,21 +36,6 @@ module.exports = {
           light: "#FFFFFF", // Fundo claro
           dark: "#F5F5F5", // Fundo escuro
         },
-
-        // Cores da identidade visual do Pet Amigo
-        "pet-blue": {
-          500: "#3B82F6", // Azul principal
-          600: "#2563EB", // Azul mais escuro
-        },
-        "pet-purple": {
-          500: "#8B5CF6", // Roxo principal
-          600: "#7C3AED", // Roxo mais escuro
-        },
-        "pet-gradient-start": "#3B82F6", // Início do gradiente (azul)
-        "pet-gradient-end": "#8B5CF6", // Fim do gradiente (roxo)
-      },
-      backgroundImage: {
-        "pet-gradient": "linear-gradient(to right, var(--tw-gradient-stops))",
       },
     },
   },

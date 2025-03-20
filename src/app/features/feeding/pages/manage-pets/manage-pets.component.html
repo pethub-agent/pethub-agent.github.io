@@ -1,0 +1,73 @@
+<div class="p-4 pt-8 font-roboto bg-background-light min-h-screen pb-20">
+  <h1 class="text-2xl text-text-primary font-bold mb-1">Meus Pets 🐾</h1>
+  <p class="text-text-secondary mb-4">
+    Gerencie aqui todos os seus animais cadastrados.
+  </p>
+
+  <div class="space-y-4">
+    @for (pet of (pets | async); track $index) {
+    <div
+      class="bg-white rounded-lg shadow p-4 flex flex-row items-center gap-5"
+    >
+      <app-avatar [src]="pet.photoUrl || ''"></app-avatar>
+      <div>
+        <p class="text-lg font-semibold text-text-primary">{{ pet.name }}</p>
+        <p class="text-sm text-text-secondary flex items-center gap-1">
+          {{ pet.gender == "M" ? "Macho" : "Femea" }}
+        </p>
+      </div>
+
+      <div class="flex gap-3 ml-auto">
+        <app-icon (click)="editPet(pet)" icon="edit"></app-icon>
+        <app-icon icon="tresh"></app-icon>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Botão flutuante adicionar -->
+  <button
+    (click)="openAddPet()"
+    class="fixed bottom-4 right-4 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-dark transition"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 4v16m8-8H4"
+      />
+    </svg>
+  </button>
+  <button
+    (click)="back()"
+    class="fixed bottom-4 right-20 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-dark transition"
+  >
+    <app-icon icon="close"></app-icon>
+  </button>
+  <button
+    (click)="openAddPet()"
+    class="fixed bottom-4 right-4 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-dark transition"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 4v16m8-8H4"
+      />
+    </svg>
+  </button>
+</div>

@@ -17,7 +17,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class ButtonComponent implements ControlValueAccessor {
-  @Input() theme: 'primary' | 'secondary' | 'neutral' | 'gradient' = 'primary';
+  @Input() theme:
+    | 'primary'
+    | 'secondary'
+    | 'neutral'
+    | 'gradient'
+    | 'gradient-primary' = 'primary';
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() outline = false;
@@ -41,6 +46,9 @@ export class ButtonComponent implements ControlValueAccessor {
       gradient: this.outline
         ? 'border-gradient text-gradient hover:bg-gradient-light'
         : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:bg-gradient-dark',
+      'gradient-primary': this.outline
+        ? 'border-gradient text-gradient hover:bg-gradient-light'
+        : 'bg-gradient-to-r from-primary to-secondary text-white hover:bg-gradient-dark',
     };
 
     return `${baseClasses} ${themes[this.theme]} ${

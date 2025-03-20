@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './features/feeding/pages/home/home.component';
+import { ManagePetsComponent } from './features/feeding/pages/manage-pets/manage-pets.component';
+import { PetFormComponent } from './features/feeding/pages/pet-form/pet-form.component';
 import { ConfirmationComponent } from './features/login/pages/confirmation/confirmation.component';
 import { IntroductionComponent } from './features/login/pages/introduction/introduction.component';
 import { LoginComponent } from './features/login/pages/login/login.component';
@@ -16,6 +19,31 @@ export const routes: Routes = [
   {
     path: 'test',
     component: TestComponent,
+  },
+  {
+    path: 'alimentacao',
+    loadComponent: () =>
+      import('./features/feeding/feeding-layout.component').then(
+        (m) => m.FeedingLayoutComponent
+      ),
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
+      {
+        path: 'pets',
+        component: ManagePetsComponent,
+      },
+      {
+        path: 'pet/:id',
+        component: PetFormComponent,
+      },
+      {
+        path: 'pet',
+        component: PetFormComponent,
+      },
+    ],
   },
   {
     path: 'login',

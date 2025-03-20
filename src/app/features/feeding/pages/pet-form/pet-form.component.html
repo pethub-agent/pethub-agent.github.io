@@ -1,0 +1,53 @@
+<div class="min-h-screen flex flex-col text-white px-6 py-8">
+  <h2
+    class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+  >
+    {{ title() }}
+  </h2>
+
+  <form
+    [formGroup]="formPet"
+    (ngSubmit)="onSubmit()"
+    class="bg-white py-4 rounded-lg w-full max-w-md text-gray-800"
+  >
+    <app-input formControlName="name" label="Nome do Animal"></app-input>
+
+    <app-select
+      formControlName="specie"
+      [options]="(species | async) || []"
+      label="Espécie"
+    ></app-select>
+    <app-input formControlName="breed" label="Raça (opcional)"></app-input>
+
+    <app-date formControlName="birth" label="Nascimento"></app-date>
+
+    <app-select
+      formControlName="gender"
+      [options]="gender()"
+      label="Sexo"
+    ></app-select>
+
+    <app-photo formControlName="photo" label="Foto do Pet"></app-photo>
+
+    @if (errorFieldRequired()) {
+
+    <p class="py-2 text-sm text-gray-600 animate-fade-up">
+      Preencha todos os campos obrigatórios.
+    </p>
+    }
+
+    <div class="flex flex-col">
+      <app-button
+        theme="gradient-primary"
+        type="submit"
+        class="max-w-md my-2 w-full"
+      >
+        Confirmar</app-button
+      >
+
+      <app-button theme="neutral" (click)="back()" class="max-w-md w-full">
+        voltar</app-button
+      >
+    </div>
+  </form>
+</div>
