@@ -1,8 +1,1 @@
-<div
-  [ngClass]="{
-        'size-5': size() == 'sm',
-        'size-6': size() == 'md',
-        'size-12': size() == 'lg',
-    }"
-  [innerHTML]="source() | async"
-></div>
+<div [ngClass]="iconClasses" [innerHTML]="source() | async"></div>

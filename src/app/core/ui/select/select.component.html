@@ -1,27 +1,30 @@
 <div class="relative mb-4">
-  @if (error) {
-  <p class="animate-fade-right pb-1 text-xs text-red-400">{{ error }}</p>
-  } @if (label) {
-  <label class="block text-sm font-medium mb-2">{{ label }}</label>
-  }
+  @if (label) {
+  <app-label>
+    {{ label }}
+  </app-label>
+  } @defer (when options) {
   <div class="relative">
     <select
       [disabled]="disabled"
-      [ngModel]="value"
-      (ngModelChange)="onChangeEvent($event)"
+      [ngModel]="selectedOption"
+      (ngModelChange)="onSelectChange($event)"
       (blur)="onBlur()"
-      class="w-full p-3 rounded-lg border-2 focus:outline-none transition-colors appearance-none"
+      class="w-full p-3 border border-gray-200 shadow-sm rounded-xl focus:ring-black focus:border-black focus:outline-none transition-colors appearance-none"
       [ngClass]="{
         'border-neutral-500 focus:border-primary-500': !disabled,
-        'border-neutral-200 bg-neutral-200': disabled
+        'border-neutral-200 bg-neutral-200': disabled,
+        '!border-danger-from': error
       }"
     >
+      <option [ngValue]="null">{{ placeholder }}</option>
       @for (option of options; track $index) {
-      <option [value]="option.value">
+      <option [ngValue]="option">
         {{ option.label }}
       </option>
       }
     </select>
+
     <div
       class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-500"
     >
@@ -40,4 +43,6 @@
       </svg>
     </div>
   </div>
+
+  }
 </div>

@@ -17,7 +17,7 @@ import { PhotoComponent } from '../../../../core/ui/photo/photo.component';
 import { SelectComponent } from '../../../../core/ui/select/select.component';
 import { Option } from '../../../../core/ui/select/select.interface';
 import { RegistrationFacade } from '../../facades/registration/registration.facade';
-import { requiredOption } from './validator';
+import { requiredOption } from './validators/required-option.validator';
 
 @Component({
   selector: 'app-register-pet',
@@ -47,10 +47,10 @@ export class RegisterPetComponent implements AfterViewInit {
   ]);
   formPet = this.fb.group({
     name: ['', Validators.required],
-    specie: [{ label: '', value: '' }, [requiredOption()]],
+    specie: [null, [requiredOption()]],
     breed: [''],
     birth: ['', Validators.required],
-    gender: [{ label: '', value: '' }, [requiredOption()]],
+    gender: [null, [requiredOption()]],
     photo: [''],
   });
   errorFieldRequired = signal(false);
@@ -83,13 +83,14 @@ export class RegisterPetComponent implements AfterViewInit {
   }
 
   private registerPet() {
+    const formPet = this.formPet.value as any;
     return this.registration.registerPet({
-      birth: this.formPet.value.birth || '',
-      breed: this.formPet.value.breed || '',
-      gender: (this.formPet.value.gender?.value || 'M') as PetGender,
-      name: this.formPet.value.name || '',
-      specieId: Number(this.formPet.value.specie?.value || ''),
-      photo: this.formPet.value.photo || '',
+      birth: formPet.birth || '',
+      breed: formPet.breed || '',
+      gender: (formPet.gender?.value || 'M') as PetGender,
+      name: formPet.name || '',
+      specieId: Number(formPet.specie?.value || ''),
+      photo: formPet.photo || '',
     });
   }
 
@@ -102,14 +103,14 @@ export class RegisterPetComponent implements AfterViewInit {
           specie: {
             label: pet.specie?.name || '',
             value: String(pet.specie?.id || ''),
-          },
+          } as any,
           breed: pet?.breed || '',
           photo: pet.photo || '',
           birth: pet?.birth.toISOString().split('T')[0] || '',
           gender: {
             label: pet?.gender == 'M' ? 'Macho' : 'Femea',
             value: pet?.gender || '',
-          },
+          } as any,
         });
       }
     });

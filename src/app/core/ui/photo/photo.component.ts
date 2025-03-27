@@ -15,11 +15,12 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'app-photo',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LabelComponent],
   templateUrl: './photo.component.html',
   styleUrl: './photo.component.scss',
   providers: [
@@ -51,7 +52,7 @@ export class PhotoComponent implements ControlValueAccessor, OnInit {
   get error() {
     if (this.control?.errors && this.group?.submitted) {
       if (this.control.errors['required']) {
-        return 'Este campo é obrigatório.';
+        return 'Obrigatório.';
       }
     }
     return '';

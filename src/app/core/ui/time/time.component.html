@@ -1,0 +1,21 @@
+<div class="relative mb-4">
+  @if (label) {
+  <app-label>
+    {{ label }}
+  </app-label>
+  }
+  <input
+    type="time"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [(ngModel)]="value"
+    (blur)="onBlur()"
+    (input)="onInputChange($event)"
+    class="w-full p-3 border border-gray-200 shadow-sm rounded-xl focus:ring-black focus:border-black focus:outline-none transition-colors"
+    [ngClass]="{
+      'border-neutral-500 focus:border-primary-500': !disabled,
+      'border-neutral-200 bg-neutral-200': disabled,
+      '!border-danger-from': error
+    }"
+  />
+</div>

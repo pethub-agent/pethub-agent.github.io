@@ -6,11 +6,12 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'app-date',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LabelComponent],
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
   providers: [
@@ -35,10 +36,7 @@ export class DateComponent implements ControlValueAccessor, OnInit {
   get error() {
     if (this.control?.errors && this.group?.submitted) {
       if (this.control.errors['required']) {
-        return 'Este campo é obrigatório.';
-      }
-      if (this.control.errors['email']) {
-        return `Este campo deve ser um email.`;
+        return 'Obrigatório.';
       }
     }
     return '';

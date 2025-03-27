@@ -1,0 +1,17 @@
+<div class="mb-4">
+  @if (label) {
+
+  <app-label>{{ label }}</app-label>
+  }
+  <textarea
+    [(ngModel)]="value"
+    [rows]="rows"
+    [placeholder]="placeholder"
+    (blur)="onBlur()"
+    (input)="onInputChange($event)"
+    class="w-full border border-gray-200 rounded-xl p-4 shadow-sm focus:ring-black focus:border-black transition-all"
+    [ngClass]="{
+      '!border-danger-from': error
+    }"
+  ></textarea>
+</div>

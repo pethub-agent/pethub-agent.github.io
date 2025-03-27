@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { FeedingPlanComponent } from './features/feeding/pages/feeding-plan/feeding-plan.component';
 import { HomeComponent } from './features/feeding/pages/home/home.component';
 import { ManagePetsComponent } from './features/feeding/pages/manage-pets/manage-pets.component';
 import { PetFormComponent } from './features/feeding/pages/pet-form/pet-form.component';
@@ -42,6 +43,10 @@ export const routes: Routes = [
       {
         path: 'pet',
         component: PetFormComponent,
+      },
+      {
+        path: 'plano/:petId',
+        component: FeedingPlanComponent,
       },
     ],
   },

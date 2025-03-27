@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../../core/ui/button/button.component';
 import { InputComponent } from '../../../../core/ui/input/input.component';
 import { RegistrationFacade } from '../../facades/registration/registration.facade';
-import { passwordMatchValidator } from './validator';
+import { passwordMatchValidator } from './password-match.validator';
 
 @Component({
   selector: 'app-register-user',

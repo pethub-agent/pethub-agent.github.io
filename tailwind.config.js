@@ -24,9 +24,20 @@ module.exports = {
           900: "#2E2E2E", // Neutro 900
         },
         support: {
-          blue: "#58A6FF", // Azul de suporte
+          blue: "#6366f1", // Azul de suporte
           green: "#58C77C", // Verde de suporte
         },
+        g: {
+          from: "#3B82F5",
+          to: "#9333EA",
+        },
+        danger: {
+          from: "#ef4444",
+          to: "#ea580c",
+        },
+        // from-rose-600 (#e11d48)
+        // to-pink-600 (#db2777)
+
         text: {
           primary: "#2E2E2E", // Cor primária do texto
           secondary: "#4A4A4A", // Cor secundária do texto
@@ -34,7 +45,6 @@ module.exports = {
         },
         background: {
           light: "#FFFFFF", // Fundo claro
-          dark: "#F5F5F5", // Fundo escuro
         },
       },
     },

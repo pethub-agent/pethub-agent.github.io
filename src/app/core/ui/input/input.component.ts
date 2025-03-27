@@ -7,11 +7,12 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LabelComponent],
   templateUrl: './input.component.html',
   providers: [
     {
@@ -45,7 +46,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   get error() {
     if (this.control?.errors && this.group?.submitted) {
       if (this.control.errors['required']) {
-        return 'Este campo é obrigatório.';
+        return 'Obrigatório.';
       }
       if (this.control.errors['email']) {
         return `Este campo deve ser um email.`;
@@ -62,7 +63,9 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(value: any): void {
-    this.value = value;
+    if ([undefined, null].indexOf(value) == -1) {
+      this.value = value;
+    }
   }
 
   registerOnChange(fn: any): void {

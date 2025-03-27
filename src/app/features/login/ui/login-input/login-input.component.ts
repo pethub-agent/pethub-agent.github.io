@@ -44,7 +44,7 @@ export class LoginInputComponent implements ControlValueAccessor, OnInit {
   get error() {
     if (this.control?.errors && this.group?.submitted) {
       if (this.control.errors['required']) {
-        return 'Este campo é obrigatório.';
+        return 'Obrigatório.';
       }
       if (this.control.errors['email']) {
         return `Este campo deve ser um email.`;

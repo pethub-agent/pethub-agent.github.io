@@ -1,11 +1,17 @@
 <div class="mb-4">
-  @if (error) {
-  <p class="animate-fade-right pb-1 text-xs text-red-400">{{ error }}</p>
-  } @if (label) {
-  <label class="block text-sm font-medium mb-2">{{ label }}</label>
+  @if (label) {
+  <app-label>
+    {{ label }}
+  </app-label>
+
   }
   <div
-    class="relative flex justify-center items-center border-2 border-dashed border-gray-300 rounded-lg py-4 mt-2"
+    class="relative flex justify-center items-center border-2 border-dashed border-gray-200 rounded-lg py-4 mt-2"
+    [ngClass]="{
+      'border-neutral-500 focus:border-primary-500': !disabled,
+      'border-neutral-200 bg-neutral-200': disabled,
+      '!border-danger-from': error
+    }"
   >
     @if (src) {
     <img [src]="src" class="w-32 h-32 object-cover rounded-full" />

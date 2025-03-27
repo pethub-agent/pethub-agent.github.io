@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  Injector,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormGroupDirective,
@@ -7,12 +15,13 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 import { Option } from './select.interface';
 
 @Component({
   selector: 'app-select',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LabelComponent],
   templateUrl: './select.component.html',
   providers: [
     {
@@ -22,26 +31,26 @@ import { Option } from './select.interface';
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor, OnInit {
-  @Input()
-  options: Option[] = []; // Opções do select
+export class SelectComponent
+  implements ControlValueAccessor, OnInit, OnChanges
+{
+  @Input() options: Option[] = [];
+  @Input() disabled = false;
+  @Input() label = '';
+  @Input() placeholder = 'Selecione';
 
-  @Input()
-  disabled = false;
+  onChange: (value: any) => void = () => {};
+  onTouched: () => void = () => {};
 
-  @Input()
-  label = '';
-
-  value: any;
-  onChange: any = () => {};
-  onTouched: any = () => {};
   control: NgControl | null = null;
   group: FormGroupDirective | null = null;
 
-  get error() {
+  selectedOption: Option | null = null;
+
+  get error(): string {
     if (this.control?.errors && this.group?.submitted) {
       if (this.control.errors['required']) {
-        return 'Este campo é obrigatório.';
+        return 'Obrigatório.';
       }
     }
     return '';
@@ -54,8 +63,22 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     this.control = this.injector.get(NgControl, null);
   }
 
-  writeValue(option: Option): void {
-    this.value = option.value;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options']) {
+      // Carrega o valor caso o input options seja carregado de forma assincrona
+      this.selectedOption =
+        this.options.find((opt) => opt.value === this.selectedOption?.value) ||
+        null;
+    }
+  }
+
+  writeValue(option: Option | null): void {
+    if (option) {
+      this.selectedOption =
+        this.options.find((opt) => opt.value === option.value) || option;
+    } else {
+      this.selectedOption = null;
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -66,7 +89,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
@@ -74,9 +97,9 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     this.onTouched();
   }
 
-  onChangeEvent(value: string | number): void {
-    const data = this.options.find((d) => d.value == value);
-    console.log(data);
-    this.onChange(data);
+  onSelectChange(value: Option | null) {
+    this.selectedOption = value;
+    this.onChange(value);
+    this.onTouched();
   }
 }

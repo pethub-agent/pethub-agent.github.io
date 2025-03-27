@@ -14,7 +14,7 @@
 
     <app-select
       formControlName="specie"
-      [options]="(species | async) || []"
+      [options]="species()"
       label="Espécie"
     ></app-select>
     <app-input formControlName="breed" label="Raça (opcional)"></app-input>

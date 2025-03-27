@@ -1,0 +1,74 @@
+<div class="w-full mx-auto">
+  <div class="border-b border-gray-300">
+    <button
+      (click)="toggle($event)"
+      class="w-full flex gap-4 justify-between items-center p-4 text-left bg-gray-100 transition"
+    >
+      <div class="w-full pr-2 flex flex-row font-medium text-gray-700">
+        <span>{{ formMeals.value.time }} </span>
+        @if ( formMeals.value.note ) {
+
+        <p class="font-normal ml-2">{{ formMeals.value.note }}</p>
+        }
+      </div>
+
+      <app-icon
+        (click)="remove($event)"
+        [rounded]="true"
+        size="sm"
+        icon="trash"
+        class="text-text-secondary hover:scale-110 active:scale-110 cursor-pointer"
+      ></app-icon>
+      <app-icon
+        (click)="toggle($event)"
+        size="md"
+        icon="edit"
+        class="text-indigo-600 font-bold hover:scale-110 active:scale-110 cursor-pointer"
+      ></app-icon>
+    </button>
+    <!-- @if (active()) { -->
+    <div
+      class="p-4 text-gray-600 bg-gray-50 transition animate-fade-down"
+      [ngClass]="{ hidden: !active() }"
+    >
+      <form
+        #form="ngForm"
+        [formGroup]="formMeals"
+        class="grid grid-cols-1 md:grid-cols-3 gap-4"
+      >
+        <app-time formControlName="time" label="Horário"></app-time>
+
+        <app-select
+          formControlName="type"
+          label="Tipo"
+          [options]="(types$ | async) || []"
+        ></app-select>
+
+        <div class="grid grid-cols-6 gap-2 w-full">
+          <app-input
+            class="col-span-4"
+            formControlName="amount"
+            label="Quantidade"
+            type="number"
+          ></app-input>
+
+          <app-select
+            label="Medida"
+            formControlName="unit"
+            class="mt-auto col-span-2"
+            [options]="(units$ | async) || []"
+          ></app-select>
+        </div>
+
+        <app-textarea
+          formControlName="note"
+          class="md:col-span-2"
+          label="Notas (opcional)"
+          [rows]="2"
+          placeholder="Exemplo: Ração seca premium"
+        ></app-textarea>
+      </form>
+    </div>
+    <!-- } -->
+  </div>
+</div>
