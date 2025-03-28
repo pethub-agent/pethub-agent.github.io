@@ -16,7 +16,7 @@ export interface Meal {
   note: string;
 }
 
-export interface FeedingPlan {
+export interface FeedingPlanView {
   id?: number | null;
   petId?: number | null;
   status?: string;

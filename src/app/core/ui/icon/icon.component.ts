@@ -4,7 +4,15 @@ import { Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { map, of } from 'rxjs';
 
-type Icon = 'engine' | 'bell' | 'edit' | 'trash' | 'close';
+type Icon =
+  | 'pet'
+  | 'calendar'
+  | 'clock'
+  | 'engine'
+  | 'bell'
+  | 'edit'
+  | 'trash'
+  | 'close';
 
 @Component({
   selector: 'app-icon',
@@ -16,7 +24,7 @@ type Icon = 'engine' | 'bell' | 'edit' | 'trash' | 'close';
 export class IconComponent {
   private http = inject(HttpClient);
   private sanitizer = inject(DomSanitizer);
-
+  class = input('');
   icon = input<Icon | null>(null);
   size = input<'sm' | 'md' | 'lg'>('md');
   rounded = input(false);
@@ -48,6 +56,7 @@ export class IconComponent {
       'size-5': this.size() == 'sm',
       'size-6': this.size() == 'md',
       'size-12': this.size() == 'lg',
+      'text-black': true,
       // 'rounded-full border-2 border-solid p-4': this.rounded(),
     };
 

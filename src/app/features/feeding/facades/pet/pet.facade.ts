@@ -3,7 +3,7 @@ import { db } from '../../../../core/services/database/db';
 import { PetTable } from '../../../../core/services/database/tables/pet.table';
 import { JwtService } from '../../../../core/services/jwt/jwt.service';
 import { AddPetDto } from '../../pages/pet-form/dto/add-pet.dto';
-import { PetStore } from './interfaces/pet.interface';
+import { PetView } from './view/pet.view';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +40,7 @@ export class PetFacade {
         label: pet?.gender == 'M' ? 'Macho' : 'Femea',
         value: pet?.gender || '',
       },
-    } as PetStore;
+    } as PetView;
   }
 
   async updatePet(pet: AddPetDto) {
@@ -73,7 +73,7 @@ export class PetFacade {
     return petId;
   }
 
-  private async mapPets(pets: PetTable[]): Promise<PetStore[]> {
+  private async mapPets(pets: PetTable[]): Promise<PetView[]> {
     return Promise.all(
       pets.map(async (p) => {
         const specie = await db.specie.get(p.specieId);
@@ -97,7 +97,7 @@ export class PetFacade {
             label: p.gender == 'M' ? 'Macho' : 'Femea',
           },
           photoUrl: p.photoUrl,
-        } as PetStore;
+        } as PetView;
       })
     );
   }

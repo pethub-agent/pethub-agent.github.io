@@ -1,0 +1,85 @@
+<div
+  class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black bg-opacity-50 transition-opacity"
+  [class.hidden]="!isOpen()"
+>
+  <div
+    class="animate-fade-up w-full max-w-md bg-white rounded-t-2xl sm:rounded-2xl shadow-xl transform transition-all max-h-[90vh] flex flex-col"
+  >
+    <!-- Header -->
+    <div
+      class="sticky top-0 bg-white px-6 py-4 border-b border-gray-200 rounded-t-2xl flex justify-between items-center"
+    >
+      <h2 class="text-xl font-bold text-gray-900">Registrar Refeição</h2>
+      <button (click)="close()" class="text-gray-400 hover:text-gray-500">
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 overflow-y-auto px-6 py-4">
+      <form [formGroup]="mealForm" (ngSubmit)="onSubmit()">
+        <!-- Pet Info -->
+        <div class="flex items-center mb-6 p-3 bg-gray-50 rounded-lg">
+          <img
+            [src]="pet()?.photoUrl || 'assets/default-pet.png'"
+            class="h-12 w-12 rounded-full object-cover mr-3"
+          />
+          <div>
+            <p class="font-medium text-gray-900">{{ pet()?.name }}</p>
+            <p class="text-sm text-gray-500">Registrando refeição</p>
+          </div>
+        </div>
+
+        <!-- Feeding Type -->
+        <app-select
+          formControlName="feedingType"
+          [options]="feedingTypes()"
+          label="Tipo de Refeição"
+        ></app-select>
+
+        <!-- Amount & Unit -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <app-input formControlName="amount" label="Quantidade *"></app-input>
+          <app-select
+            formControlName="unit"
+            [options]="units()"
+            label="Medida *"
+          ></app-select>
+        </div>
+
+        <!-- Time Picker -->
+        <app-time formControlName="time" label="Horário *"></app-time>
+
+        <!-- Notes -->
+        <app-textarea formControlName="note" label="Observações"></app-textarea>
+
+        <!-- Footer Buttons -->
+
+        @if (mealForm.invalid) {
+        <p class="py-2 text-sm text-gray-600 animate-fade-up">
+          Preencha todos os campos obrigatórios.
+        </p>
+        }
+        <div
+          class="sticky bottom-0 bg-white py-4 border-t border-gray-200 flex justify-end space-x-3"
+        >
+          <app-button theme="neutral" (click)="close()">Cancelar</app-button>
+
+          <app-button type="submit" theme="gradient">Registrar</app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

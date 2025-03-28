@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { db } from '../../../../core/services/database/db';
 import { MealPlanTable } from '../../../../core/services/database/tables/meal-plan.table';
-import { FeedingPlan, Meal } from './interfaces/feeding-plan.interface';
+import { FeedingPlanView, Meal } from './view/feeding-plan.view';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class FeedingPlanFacade {
     return await db.feedingType.get(feedingTypeId);
   }
 
-  async saveFeedingPlan(plan: FeedingPlan) {
+  async saveFeedingPlan(plan: FeedingPlanView) {
     // Caso for edição
     if (!!plan.id) {
       await db.feedingPlan.update(plan.id, {
@@ -66,7 +66,7 @@ export class FeedingPlanFacade {
     }
   }
 
-  async loadFeedingPlan(petId: number): Promise<FeedingPlan | null> {
+  async loadFeedingPlan(petId: number): Promise<FeedingPlanView | null> {
     const [pet, plan] = await Promise.all([
       db.pet.get(petId),
       db.feedingPlan
@@ -94,7 +94,7 @@ export class FeedingPlanFacade {
       .toArray();
 
     // Inicia plano de alimentação
-    const feedingPlan: FeedingPlan = {
+    const feedingPlan: FeedingPlanView = {
       id: plan.id,
       petId: Number(pet.id),
       startAt: plan.startAt,

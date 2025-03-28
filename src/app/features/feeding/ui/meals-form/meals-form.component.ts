@@ -25,14 +25,13 @@ import {
 } from '@angular/forms';
 import { liveQuery } from 'dexie';
 import { db } from '../../../../core/services/database/db';
-import { ButtonComponent } from '../../../../core/ui/button/button.component';
 import { IconComponent } from '../../../../core/ui/icon/icon.component';
 import { InputComponent } from '../../../../core/ui/input/input.component';
 import { SelectComponent } from '../../../../core/ui/select/select.component';
 import { Option } from '../../../../core/ui/select/select.interface';
 import { TextareaComponent } from '../../../../core/ui/textarea/textarea.component';
 import { TimeComponent } from '../../../../core/ui/time/time.component';
-import { Meal } from '../../facades/feeding-plan/interfaces/feeding-plan.interface';
+import { Meal } from '../../facades/feeding-plan/view/feeding-plan.view';
 
 @Component({
   selector: 'app-meals-form',
@@ -45,7 +44,6 @@ import { Meal } from '../../facades/feeding-plan/interfaces/feeding-plan.interfa
     FormsModule,
     ReactiveFormsModule,
     InputComponent,
-    ButtonComponent,
     IconComponent,
   ],
   templateUrl: './meals-form.component.html',
@@ -71,8 +69,7 @@ export class MealsFormComponent
   @Input() required = false;
   @Output() onRemove = new EventEmitter();
 
-  @ViewChild('form')
-  form!: FormGroupDirective;
+  @ViewChild('form') form!: FormGroupDirective;
 
   onChange: any = () => {};
   onTouched: any = () => {};
@@ -103,20 +100,6 @@ export class MealsFormComponent
 
   writeValue(meal: Meal): void {
     if (meal && meal.id) {
-      // TODO: Remover
-      // let type = meal.type.id
-      //   ? {
-      //       value: meal.type.id,
-      //       label: meal.type.type,
-      //     }
-      //   : null;
-      // let unit = meal.unit.id
-      //   ? {
-      //       value: String(meal.unit.id),
-      //       label: meal.unit.description,
-      //     }
-      //   : null;
-
       this.value.set(meal);
       this.formMeals.reset({
         time: meal.time,

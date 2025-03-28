@@ -13,11 +13,11 @@ import { Option } from '../../../../core/ui/select/select.interface';
 import { TextareaComponent } from '../../../../core/ui/textarea/textarea.component';
 import { FeedingPlanFacade } from '../../facades/feeding-plan/feeding-plan.facade';
 import {
-  FeedingPlan,
+  FeedingPlanView,
   Meal,
-} from '../../facades/feeding-plan/interfaces/feeding-plan.interface';
-import { PetStore } from '../../facades/pet/interfaces/pet.interface';
+} from '../../facades/feeding-plan/view/feeding-plan.view';
 import { PetFacade } from '../../facades/pet/pet.facade';
+import { PetView } from '../../facades/pet/view/pet.view';
 import { MealsFormComponent } from '../../ui/meals-form/meals-form.component';
 
 @Component({
@@ -39,9 +39,9 @@ export class FeedingPlanComponent implements AfterViewInit {
   private activatedRoute = inject(ActivatedRoute);
   private petFacade = inject(PetFacade);
 
-  plan = signal<FeedingPlan | null>(null);
+  plan = signal<FeedingPlanView | null>(null);
   petId = signal<number | null>(null);
-  pet = signal<PetStore | null>(null);
+  pet = signal<PetView | null>(null);
   error = signal('');
 
   formPlan = this.fb.group({

@@ -48,9 +48,7 @@ export class ButtonComponent implements ControlValueAccessor {
       secondary: this.outline
         ? 'border-secondary text-secondary hover:bg-secondary-light'
         : 'bg-secondary text-black hover:bg-secondary-dark',
-      neutral: this.outline
-        ? 'border-neutral-500 text-neutral-800 hover:bg-neutral-200'
-        : 'bg-neutral-200 text-neutral-800 hover:bg-neutral-500',
+      neutral: 'bg-white border border-solid border-gray-300 text-gray-800',
       gradient: this.outline
         ? 'border-gradient text-gradient hover:bg-gradient-light'
         : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:bg-gradient-dark',

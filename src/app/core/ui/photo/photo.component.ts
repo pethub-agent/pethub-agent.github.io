@@ -83,7 +83,8 @@ export class PhotoComponent implements ControlValueAccessor, OnInit {
     this.disabled = isDisabled;
   }
 
-  removeImage() {
+  removeImage(event: Event) {
+    event.preventDefault();
     this.src = null;
 
     // Reset the file input value to trigger the onFileSelected method again
@@ -95,7 +96,8 @@ export class PhotoComponent implements ControlValueAccessor, OnInit {
   }
 
   // Trigger file input to open file picker
-  triggerFileInput() {
+  triggerFileInput(event: Event) {
+    event.preventDefault();
     const fileInput = this.input?.nativeElement;
 
     fileInput.click();
