@@ -1,0 +1,1 @@
+import{I as o,Ka as a,sa as n,tb as i}from"./chunk-WARY2JVH.js";var m=(()=>{class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=o({type:e,selectors:[["app-login-layout"]],standalone:!0,features:[a],decls:1,vars:0,template:function(t,p){t&1&&n(0,"router-outlet")},dependencies:[i],encapsulation:2})}return e})();export{m as LoginLayoutComponent};
