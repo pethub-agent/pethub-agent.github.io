@@ -3,18 +3,22 @@ import {
   AfterViewInit,
   Component,
   inject,
+  QueryList,
   signal,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvatarComponent } from '../../../../core/ui/avatar/avatar.component';
+import { BadgeComponent } from '../../../../core/ui/badge/badge.component';
 import { ButtonComponent } from '../../../../core/ui/button/button.component';
 import { IconComponent } from '../../../../core/ui/icon/icon.component';
-import { HistoryFacade } from '../../facades/history/history.facade';
+import { HomeFacade } from '../../facades/history/home.facade';
 import { HistoryView } from '../../facades/history/view/history.view';
-import { PetFacade } from '../../facades/pet/pet.facade';
 import { PetView } from '../../facades/pet/view/pet.view';
 import { ModalMealRecordComponent } from '../../ui/modal-meal-record/modal-meal-record.component';
+import { PetSelectComponent } from '../../ui/pet-select/pet-select.component';
+import { WeeklyGoalCardComponent } from '../../ui/weekly-goal-card/weekly-goal-card.component';
 
 @Component({
   selector: 'app-home',
@@ -23,41 +27,38 @@ import { ModalMealRecordComponent } from '../../ui/modal-meal-record/modal-meal-
     CommonModule,
     IconComponent,
     AvatarComponent,
-    ButtonComponent,
-
     ModalMealRecordComponent,
+    WeeklyGoalCardComponent,
+    PetSelectComponent,
+    ButtonComponent,
+    BadgeComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements AfterViewInit {
   private router = inject(Router);
-  private pet = inject(PetFacade);
-  private historyFacade = inject(HistoryFacade);
+
+  private historyFacade = inject(HomeFacade);
 
   @ViewChild('modalMeal') modalMeal!: ModalMealRecordComponent;
+  @ViewChildren('badges') badges!: QueryList<BadgeComponent>;
 
-  petList = signal<PetView[]>([]);
   history = signal<HistoryView>([]);
-  selectedPet: PetView | null = null;
-
-  meal = {
-    time: 'time',
-    recordedAt: 'recordedAt',
-    amount: 'amount',
-    measurementUnitId: 'measurementUnitId',
-
-    note: 'note',
-  };
+  selectedPet = signal<PetView | null>(null);
+  badgeList = signal(['Meta Semanal', 'Histórico']);
+  selectedBadge = signal(0);
 
   ngAfterViewInit(): void {
     this.historyFacade.findHistory().subscribe((history) => {
       this.history.set(history);
     });
+  }
 
-    this.pet.listPets().then((pets) => {
-      this.petList.set(pets);
-      this.activePet(this.petList()[0]);
+  activeBadge(index: number) {
+    this.badges.forEach((badge, i) => {
+      this.selectedBadge.set(index);
+      badge.active = i == index;
     });
   }
 
@@ -66,16 +67,13 @@ export class HomeComponent implements AfterViewInit {
   }
 
   goToFeedingPlan() {
-    this.router.navigate(['alimentacao/plano', this.selectedPet?.id]);
-  }
-
-  activePet(pet: any): void {
-    this.selectedPet = pet;
+    this.router.navigate(['alimentacao/plano', this.selectedPet()?.id]);
   }
 
   registerMeal() {
-    if (this.selectedPet?.id) {
-      this.modalMeal.open(this.selectedPet?.id);
+    const petId = Number(this.selectedPet()?.id);
+    if (this.selectedPet()?.id) {
+      this.modalMeal.open(petId);
     }
   }
 }

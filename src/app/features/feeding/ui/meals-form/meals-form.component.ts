@@ -80,6 +80,7 @@ export class MealsFormComponent
     amount: [100, [Validators.required]],
     unit: [null, [Validators.required]],
     note: [''],
+    active: [false],
   });
 
   units$ = liveQuery(() => this.listUnits());
@@ -121,6 +122,7 @@ export class MealsFormComponent
 
   toggle(event: Event) {
     event.stopPropagation();
+
     this.active.set(!this.active());
   }
 

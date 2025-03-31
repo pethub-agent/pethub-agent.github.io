@@ -21,27 +21,69 @@
   </div>
 
   <!-- Seletor de Pets -->
-  <div class="mb-4">
-    <div class="flex flex-row gap-2 space-x-4 overflow-x-auto pb-2">
-      @for (pet of petList(); track $index) {
-      <div
-        (click)="activePet(pet)"
-        [class.border-primary]="selectedPet?.id === pet.id"
-        class="flex-shrink-0 flex flex-col items-center p-4 border-2 border-dashed rounded-lg cursor-pointer hover:bg-neutral-200 transition-colors"
-      >
-        <app-avatar size="lg" [src]="pet.photoUrl || ''"></app-avatar>
+  <app-pet-select (onSelect)="selectedPet.set($event)"></app-pet-select>
 
-        <p class="text-text-primary font-semibold">{{ pet.name }}</p>
+  <!-- Badges Menu -->
+  <section class="flex gap-2 my-5">
+    @for (item of badgeList(); track $index) {
+
+    <app-badge (click)="activeBadge($index)" #badges [active]="$index == 0">{{
+      item
+    }}</app-badge>
+
+    }
+  </section>
+
+  <!-- Meta semanal -->
+  @if (selectedBadge() == 0 && selectedPet()) {
+  <app-weekly-goal-card
+    class="animate-fade"
+    [petId]="selectedPet()!.id || 0"
+  ></app-weekly-goal-card>
+  }
+
+  <!-- Histórico de registro de alimentação -->
+  @if (selectedBadge() == 1 && history().length) { @if (history().length) {
+  <section class="animate-fade container mx-auto py-4 max-w-xl">
+    <h2 class="text-lg font-medium text-gray-700 mb-2">
+      Histórico de Alimentação
+    </h2>
+
+    @for (item of history(); track $index) {
+    <div
+      class="flex items-center px-4 py-2 my-3 border border-dashed border-gray-300 rounded-lg"
+    >
+      <div class="flex-shrink-0 mr-3">
+        <app-avatar [src]="item.pet.photoUrl || ''"></app-avatar>
       </div>
 
-      }
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between">
+          <p class="text-sm font-medium text-gray-900 truncate">
+            {{ item.pet.name }}
+          </p>
+          <span class="text-sm text-gray-500 ml-2">{{
+            item.recordAt.toISOString().split("T")[0] + " " + item.time
+          }}</span>
+        </div>
+        <p class="text-sm text-gray-600">
+          {{ item.amount + " " + item.unit.label }}
+        </p>
+      </div>
     </div>
-  </div>
-
-  <!-- Dashboard do Pet -->
+    }
+  </section>
+  } }
 
   <!-- Ações -->
-  <section class="flex flex-row gap-2 mb-4">
+  <!-- <section class="flex flex-row gap-2 mb-4">
+    <div
+      (click)="goToPetManager()"
+      class="animate-fade size-14 border border-solid shadow-md hover:scale-105 cursor-pointer rounded-xl grid items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+    >
+      <app-icon class="!text-white" icon="pet"></app-icon>
+    </div>
+
     @if (selectedPet) {
     <div
       (click)="goToFeedingPlan()"
@@ -56,63 +98,17 @@
       <app-icon class="!text-white" icon="clock"></app-icon>
     </div>
     }
+  </section> -->
 
-    <div
-      (click)="goToPetManager()"
-      class="animate-fade size-14 border border-solid shadow-md hover:scale-105 cursor-pointer rounded-xl grid items-center justify-center bg-gradient-to-r from-primary to-secondary text-white"
-    >
-      <app-icon class="!text-white" icon="pet"></app-icon>
-    </div>
-  </section>
-
-  <section class="w-full">
-    <h2>Meta semanal</h2>
-    <div class="grid grid-cols-2 gap-2">
-      <div class="bg-gray-100 p-5 rounded-lg">
-        <p>Cumprido</p>
-        <div class="flex">
-          <p class="text-5xl">800<span class="text-lg">g</span></p>
-        </div>
-      </div>
-      <div class="bg-indigo-50 p-5 rounded-lg">
-        <p>Meta</p>
-        <div class="flex">
-          <p class="text-5xl">1000<span class="text-lg">g</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Histórico de registro de alimentação -->
-  <section class="container mx-auto py-6 max-w-xl">
-    <h2 class="text-lg font-medium text-gray-700 mb-4">
-      Histórico de Alimentação
-    </h2>
-
-    @for (item of history(); track $index) {
-    <div class="flex items-center pb-3 mb-5 px-4">
-      <div class="flex-shrink-0 mr-3">
-        <app-avatar [src]="item.pet.photoUrl || ''"></app-avatar>
-      </div>
-
-      <div class="flex-1 min-w-0">
-        <div class="flex justify-between">
-          <p class="text-sm font-medium text-gray-900 truncate">
-            {{ item.pet.name }}
-          </p>
-          <span class="text-xs text-gray-500 ml-2">{{ item.time }}</span>
-        </div>
-        <p class="text-sm text-gray-600">
-          {{ item.amount + " " + item.unit.label }}
-        </p>
-      </div>
-
-      <!-- <button
-        class="ml-4 text-sm text-blue-600 hover:text-blue-800 font-medium"
-      >
-        Detalhes
-      </button> -->
-    </div>
-    }
-  </section>
+  <!-- Menu flutuante -->
+  @if (selectedPet()) {
+  <nav class="animate-fade-up z-20 fixed bottom-0 right-0 p-4 gap-3 flex">
+    <!-- <app-button (click)="goToFeedingPlan()" theme="gradient" [rounded]="true"
+      >Agenda <app-icon class="!text-white" icon="calendar"></app-icon
+    ></app-button> -->
+    <app-button (click)="registerMeal()" theme="gradient" [rounded]="true"
+      >Alimentar <app-icon class="!text-white" icon="clock"></app-icon
+    ></app-button>
+  </nav>
+  }
 </div>

@@ -3,15 +3,17 @@ import { Component, forwardRef, Injector, Input, OnInit } from '@angular/core';
 import {
   ControlValueAccessor,
   FormGroupDirective,
+  FormsModule,
   NG_VALUE_ACCESSOR,
   NgControl,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'app-date',
   standalone: true,
-  imports: [CommonModule, LabelComponent],
+  imports: [CommonModule, LabelComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
   providers: [

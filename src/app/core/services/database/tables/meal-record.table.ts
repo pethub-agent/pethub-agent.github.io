@@ -1,23 +1,23 @@
 export const MEAL_RECORD_SCHEMA = [
   '++id',
-  'measurementUnitId',
   'feedingPlanId',
   'petId',
+  'feedingTypeId',
+  'measurementUnitId',
   'time',
-  'type',
   'amount',
   'note',
-  'recordedAt',
+  'recordAt',
 ].toString();
 
 export interface MealRecordTable {
   id?: number; // Identificador único do registro de refeição
-  feedingPlanId: number; // ID do plano alimentar
+  feedingPlanId?: number; // ID do plano alimentar
+  petId: number;
   feedingTypeId: number; // Tipo de refeição
   measurementUnitId: number; // Unidade de medida
   time: string; // Horário previsto da refeição
-
   amount: number; // Quantidade oferecida
   note: string;
-  recordedAt: Date; // Data e hora em que o registro foi feito
+  recordAt: Date; // Data e hora em que o registro foi feito
 }

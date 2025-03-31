@@ -10,4 +10,5 @@ export interface AddMealRecordDto {
   };
   time: string;
   note: string;
+  recordAt: Date;
 }

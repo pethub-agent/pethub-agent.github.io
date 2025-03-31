@@ -6,6 +6,7 @@ import { map, of } from 'rxjs';
 
 type Icon =
   | 'pet'
+  | 'plus'
   | 'calendar'
   | 'clock'
   | 'engine'

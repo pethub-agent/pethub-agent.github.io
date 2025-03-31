@@ -118,7 +118,7 @@ export class PetFormComponent implements AfterViewInit {
     // Carrega formulario
     const isEdit = !!this.petId();
     if (!isEdit) {
-      this.title.set('Adicionar Pet');
+      this.title.set('Cadastrar Pet');
       this.formPet.reset({
         name: '',
         specie: null,

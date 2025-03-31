@@ -1,0 +1,29 @@
+<div class="mb-4">
+  <div class="flex flex-row gap-2 space-x-4 overflow-x-auto pb-2">
+    @for (pet of petList(); track $index) {
+    <div
+      (click)="activePet(pet)"
+      [class.border-primary]="selectedPet()?.id === pet.id"
+      class="max-w-24 h-32 max-h-32 flex-shrink-0 gap-2 flex flex-col items-center p-4 border-2 border-dashed rounded-lg cursor-pointer hover:bg-neutral-200 transition-colors"
+    >
+      <app-avatar size="lg" [src]="pet.photoUrl || ''"></app-avatar>
+
+      <p class="max-w-20 text-text-primary font-semibold truncate text-sm">
+        {{ pet.name }}
+      </p>
+    </div>
+
+    }
+
+    <div
+      (click)="addPet()"
+      class="max-w-24 h-32 w-24 flex-shrink-0 flex flex-col justify-center items-center border-2 border-dashed rounded-lg cursor-pointer transition-colors"
+    >
+      <div
+        class="grid items-center justify-center bg-white shadow size-9 border border-solid border-black rounded-full"
+      >
+        <app-icon icon="plus"></app-icon>
+      </div>
+    </div>
+  </div>
+</div>

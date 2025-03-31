@@ -27,19 +27,20 @@ export class MealRecordFacade {
     });
 
     if (!feedingPlan) {
-      throw new Error(
+      console.log(
         'Plano de alimentação não encontrado para o pet: ' + feedingPlan
       );
     }
 
     await db.mealRecord.add({
-      feedingPlanId: Number(feedingPlan.id),
+      feedingPlanId: Number(feedingPlan?.id) || undefined,
+      petId: petId,
       feedingTypeId: Number(data.feedingType.value),
       measurementUnitId: Number(data.unit.value),
       time: data.time,
       amount: data.amount,
       note: data.note,
-      recordedAt: new Date(),
+      recordAt: data.recordAt,
     });
     return;
   }

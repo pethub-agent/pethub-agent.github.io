@@ -15,6 +15,7 @@ import {
 } from '@angular/forms';
 import moment from 'moment';
 import { ButtonComponent } from '../../../../core/ui/button/button.component';
+import { DateComponent } from '../../../../core/ui/date/date.component';
 import { InputComponent } from '../../../../core/ui/input/input.component';
 import { SelectComponent } from '../../../../core/ui/select/select.component';
 import { Option } from '../../../../core/ui/select/select.interface';
@@ -34,6 +35,7 @@ import { PetView } from '../../facades/pet/view/pet.view';
     InputComponent,
     SelectComponent,
     TimeComponent,
+    DateComponent,
     TextareaComponent,
     ButtonComponent,
   ],
@@ -54,6 +56,7 @@ export class ModalMealRecordComponent {
     unit: [null, [requiredOption()]],
     time: [moment().format('hh:mm'), [Validators.required]],
     note: [''],
+    recordAt: [new Date().toISOString().split('T')[0]],
   });
 
   isOpen = signal(false);
@@ -90,6 +93,7 @@ export class ModalMealRecordComponent {
           },
           time: value.time,
           note: value.note,
+          recordAt: moment(value.recordAt).toDate(),
         })
         .then(() => this.close());
     }
@@ -101,7 +105,7 @@ export class ModalMealRecordComponent {
       this.mealRecordFacade.listFeedingType(),
       this.mealRecordFacade.listUnits(),
     ]).then(([types, units]) => {
-      // unidade de medida
+      // Mapeia unidade de medida
       this.units.set(
         units.map((u) => {
           const option: Option = {
@@ -111,7 +115,7 @@ export class ModalMealRecordComponent {
           return option;
         })
       );
-      // tipos de alimentação,
+      // Mapeia tipos de alimentação,
       this.feedingTypes.set(
         types.map((u) => {
           const option: Option = {
@@ -138,6 +142,7 @@ export class ModalMealRecordComponent {
             },
             time: moment().format('hh:mm'),
             note: '',
+            recordAt: new Date().toISOString().split('T')[0],
           });
         });
     });

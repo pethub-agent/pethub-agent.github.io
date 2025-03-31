@@ -1,7 +1,5 @@
 <div class="min-h-screen flex flex-col text-white px-6 py-8">
-  <h2
-    class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
-  >
+  <h2 class="text-3xl font-bold text-text-primary">
     {{ title() }}
   </h2>
 
@@ -10,7 +8,7 @@
     (ngSubmit)="onSubmit()"
     class="bg-white py-4 rounded-lg w-full max-w-md text-gray-800"
   >
-    <app-input formControlName="name" label="Nome do Animal"></app-input>
+    <app-input formControlName="name" label="Nome do Pet"></app-input>
 
     <app-select
       formControlName="specie"
